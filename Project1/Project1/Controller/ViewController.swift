@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UITableViewController {
     var pictures = [String]()
+    let recomendation = "See the stormviewer app!"
+    let appLink = "https://so.sat.co"
     override func viewDidLoad() {
         
         
@@ -28,6 +30,8 @@ class ViewController: UITableViewController {
         }
         pictures.sort()
         print(pictures)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pictures.count
@@ -47,5 +51,13 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    @objc func shareTapped() {
+         
+
+        let vc = UIActivityViewController(activityItems: [recomendation as Any], applicationActivities: nil)
+           vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+           present(vc, animated: true)
+       }
     
 }
