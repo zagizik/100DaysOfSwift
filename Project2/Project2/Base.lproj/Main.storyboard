@@ -18,8 +18,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pua-fz-QzG">
                                 <rect key="frame" x="107" y="100" width="200" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="OqR-zA-mQ4"/>
-                                    <constraint firstAttribute="height" constant="100" id="qL3-42-cXE"/>
+                                    <constraint firstAttribute="width" priority="999" constant="200" id="OqR-zA-mQ4"/>
+                                    <constraint firstAttribute="width" secondItem="pua-fz-QzG" secondAttribute="height" multiplier="2:1" id="ffg-x0-mMg"/>
+                                    <constraint firstAttribute="height" priority="999" constant="100" id="qL3-42-cXE"/>
                                 </constraints>
                                 <state key="normal" image="us"/>
                                 <connections>
@@ -29,8 +30,9 @@
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpG-oS-G16">
                                 <rect key="frame" x="107" y="230" width="200" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="XNB-gg-dVm"/>
-                                    <constraint firstAttribute="height" constant="100" id="iiu-2p-oAj"/>
+                                    <constraint firstAttribute="width" secondItem="cpG-oS-G16" secondAttribute="height" multiplier="2:1" id="JnB-KB-puZ"/>
+                                    <constraint firstAttribute="width" priority="999" constant="200" id="XNB-gg-dVm"/>
+                                    <constraint firstAttribute="height" priority="999" constant="100" id="iiu-2p-oAj"/>
                                 </constraints>
                                 <state key="normal" image="us"/>
                                 <connections>
@@ -40,8 +42,9 @@
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mae-2d-toJ">
                                 <rect key="frame" x="107" y="360" width="200" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="JgZ-lc-DiS"/>
-                                    <constraint firstAttribute="width" constant="200" id="wrK-we-iJK"/>
+                                    <constraint firstAttribute="height" priority="999" constant="100" id="JgZ-lc-DiS"/>
+                                    <constraint firstAttribute="width" secondItem="Mae-2d-toJ" secondAttribute="height" multiplier="2:1" id="KMr-Kg-Fve"/>
+                                    <constraint firstAttribute="width" priority="999" constant="200" id="wrK-we-iJK"/>
                                 </constraints>
                                 <state key="normal" image="us"/>
                                 <connections>
@@ -51,12 +54,15 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="pua-fz-QzG" firstAttribute="width" secondItem="Mae-2d-toJ" secondAttribute="width" id="2HW-nN-f3B"/>
                             <constraint firstItem="Mae-2d-toJ" firstAttribute="top" secondItem="cpG-oS-G16" secondAttribute="bottom" constant="30" id="6db-jT-BZR"/>
+                            <constraint firstItem="pua-fz-QzG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="CeA-HR-d9r"/>
+                            <constraint firstItem="Mae-2d-toJ" firstAttribute="height" secondItem="cpG-oS-G16" secondAttribute="height" id="FID-h5-w0q"/>
                             <constraint firstItem="Mae-2d-toJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ffg-NC-cZ0"/>
                             <constraint firstItem="cpG-oS-G16" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hkj-5X-ROF"/>
-                            <constraint firstItem="pua-fz-QzG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="100" id="PiH-kt-unU"/>
                             <constraint firstItem="cpG-oS-G16" firstAttribute="top" secondItem="pua-fz-QzG" secondAttribute="bottom" constant="30" id="SuP-PO-d2T"/>
                             <constraint firstItem="pua-fz-QzG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oNQ-vK-25y"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Mae-2d-toJ" secondAttribute="bottom" constant="20" id="yUE-xR-MdX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
