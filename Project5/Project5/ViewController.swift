@@ -54,7 +54,7 @@ class ViewController: UITableViewController {
     @objc func promtForAnswers() {
         let ac = UIAlertController(title: "Enter your answer", message: nil, preferredStyle: .alert)
         ac.addTextField()
-        let submitAction = UIAlertAction(title: "Submit", style: .default) {
+        let submitAction = UIAlertAction(title: "Submit", style: .default)  {
             [weak self, weak ac] action in
             guard let answer = ac?.textFields?[0].text else { return }
             self?.submit(answer.lowercased())
@@ -72,7 +72,7 @@ class ViewController: UITableViewController {
                 if isReal(word: lowerAnswer) {
                     
                     
-                    usedWords.insert(answer, at: 0)
+                    usedWords.insert(answer , at: 0)
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.insertRows(at: [indexPath], with: .automatic)
                     return
