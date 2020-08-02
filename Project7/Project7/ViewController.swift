@@ -11,7 +11,8 @@ import UIKit
 class ViewController: UITableViewController {
     
     var petitions = [Petition]()
-
+    var searchResult = [Petition]()
+    var activeSearch = false
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,7 +28,7 @@ class ViewController: UITableViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showCredits))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(userSearch))
-
+        
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
                 // we're OK to parse!
@@ -37,6 +38,9 @@ class ViewController: UITableViewController {
         }
         showError()
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//        activeSearch = false
+//    }
     
     @objc func userSearch() {
         let ac = UIAlertController(title: "Search for petitions", message: "Type search request", preferredStyle: .alert)
@@ -54,6 +58,8 @@ class ViewController: UITableViewController {
         let ac = UIAlertController(title: "Hey!", message: "This data comes from the We The People API of the Whitehouse", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Nice!", style: .default))
         present(ac, animated: true)
+        activeSearch = false
+        tableView.reloadData()
     }
     
     func showError() {
@@ -72,12 +78,18 @@ class ViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+        if !activeSearch { return petitions.count } else {return searchResult.count}
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let petition = petitions[indexPath.row]
+        let petition : Petition
+        if !activeSearch {
+             petition = petitions[indexPath.row]
+        } else {
+             petition = searchResult[indexPath.row]
+        }
+        
         cell.textLabel?.text = petition.title
         cell.detailTextLabel?.text = petition.body
         return cell
@@ -90,7 +102,6 @@ class ViewController: UITableViewController {
     }
     
     func submit(_ search: String){
-        var searchResult = [Petition]()
         print(search)
         for result in petitions {
             if result.title.contains(search) || result.body.contains(search) {
@@ -98,8 +109,9 @@ class ViewController: UITableViewController {
             }
         }
         print(searchResult)
-        petitions = searchResult
+        activeSearch = true
         tableView.reloadData()
+        activeSearch = false
     }
 }
 
