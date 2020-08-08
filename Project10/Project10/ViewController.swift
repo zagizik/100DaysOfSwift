@@ -61,6 +61,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
 
         let person = Person(name: "Unknown", image: imageName)
         people.append(person)
+
         collectionView?.reloadData()
 
         dismiss(animated: true)
@@ -68,20 +69,28 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let person = people[indexPath.item]
+
+        let ac = UIAlertController(title: "Select action", message: nil, preferredStyle: .alert)
         
-        
-        
 
-        let ac = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
-        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Delete", style: .destructive){
+            [unowned self] _ in
+            self.people.remove(at: indexPath.item)
+            collectionView.reloadData()
+        })
 
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "Rename", style: .default) { [unowned self] _ in
+            let secAC = UIAlertController(title: "Type new name", message: nil, preferredStyle: .alert)
+            secAC.addTextField()
+            secAC.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            secAC.addAction(UIAlertAction(title: "Rename", style: .default) { [unowned self] _ in
+                let newName = secAC.textFields![0]
+                person.name = newName.text!
 
-        ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self, ac] _ in
-            let newName = ac.textFields![0]
-            person.name = newName.text!
-
-            self.collectionView?.reloadData()
+                self.collectionView?.reloadData()
+                
+            })
+            self.present(secAC, animated: true)
         })
 
         present(ac, animated: true)
