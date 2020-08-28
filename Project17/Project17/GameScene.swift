@@ -35,7 +35,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player = SKSpriteNode(imageNamed: "player")
         player.position = CGPoint(x: 100, y: 384)
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
-        player.physicsBody?.contactTestBitMask = 2
+        player.physicsBody?.contactTestBitMask = 1
         addChild(player)
 
         scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
@@ -72,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(sprite)
 
         sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
-        sprite.physicsBody?.categoryBitMask = 2
+        sprite.physicsBody?.categoryBitMask = 1
         sprite.physicsBody?.velocity = CGVector(dx: -500, dy: 0)
         sprite.physicsBody?.angularVelocity = 5
         sprite.physicsBody?.linearDamping = 0
