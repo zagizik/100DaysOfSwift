@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sGn-e0-tNw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sGn-e0-tNw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -25,7 +25,7 @@
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageView" id="UpQ-Hg-Exh">
                                 <rect key="frame" x="10" y="10" width="145" height="145"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="vBS-1J-dBx">
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="glu-Hn-2nS">
                                     <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -34,10 +34,10 @@
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="centerX" secondItem="vBS-1J-dBx" secondAttribute="centerX" id="6wP-5d-SnD"/>
-                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="centerY" secondItem="vBS-1J-dBx" secondAttribute="centerY" id="8h7-91-xcK"/>
-                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="leading" secondItem="vBS-1J-dBx" secondAttribute="leading" id="ICq-wg-gRi"/>
-                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="top" secondItem="vBS-1J-dBx" secondAttribute="top" id="MiJ-n3-1gM"/>
+                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="top" secondItem="glu-Hn-2nS" secondAttribute="top" id="3Yb-dd-Cuv"/>
+                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="centerX" secondItem="glu-Hn-2nS" secondAttribute="centerX" id="av3-hj-bXA"/>
+                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="leading" secondItem="glu-Hn-2nS" secondAttribute="leading" id="hkV-EW-dqf"/>
+                                        <constraint firstItem="hTV-F7-GMN" firstAttribute="centerY" secondItem="glu-Hn-2nS" secondAttribute="centerY" id="y8W-nz-KRe"/>
                                     </constraints>
                                 </collectionViewCellContentView>
                             </collectionViewCell>
