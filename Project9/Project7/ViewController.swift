@@ -12,22 +12,32 @@ class ViewController: UITableViewController {
     
     var petitions = [Petition]()
     var searchResult = [Petition]()
-    var activeSearch = false
+    var activeSearch = false {
+        didSet {
+            DispatchQueue.main.async {
+                //self.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+                self.tableView.reloadData()
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        DispatchQueue.main.async {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(self.showCredits))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(self.userSearch))
+        }
         performSelector(inBackground: #selector(fetchJSON), with: nil)
     }
     
     @objc func fetchJSON() {
-        let urlString: String
-        
-        if navigationController?.tabBarItem.tag == 0 {
-            urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
-        } else {
-            urlString = "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100"
-        }
-        
+//        let urlString: String
+//
+//        if navigationController?.tabBarItem.tag == 0 {
+//            urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
+//        } else {
+//            urlString = "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100"
+//        }
+        let urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
                 parse(json: data)
@@ -43,7 +53,10 @@ class ViewController: UITableViewController {
         
         if let jsonPetitions = try? decoder.decode(Petitions.self, from: json) {
             petitions = jsonPetitions.results
-            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+            DispatchQueue.main.async {
+                //self.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+                self.tableView.reloadData()
+            }
         } else {
             performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
         }
@@ -59,15 +72,21 @@ class ViewController: UITableViewController {
     //    }
     
     @objc func userSearch() {
+        activeSearch = false
+//        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
         let ac = UIAlertController(title: "Search for petitions", message: "Type search request", preferredStyle: .alert)
         ac.addTextField()
         let query = UIAlertAction(title: "Search", style: .default) {
             [weak self, weak ac] action in
             guard let search = ac?.textFields?[0].text else { return }
-            self?.submit(search.lowercased())
+            self?.performSelector(inBackground: #selector(self?.submit), with: search)
+            //self?.submit(search)
         }
+        
         ac.addAction(query)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .default))
         present(ac, animated: true)
+        
     }
     
     @objc func showCredits() {
@@ -75,11 +94,11 @@ class ViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "Nice!", style: .default))
         present(ac, animated: true)
         activeSearch = false
-        tableView.reloadData()
+    //    tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !activeSearch { return petitions.count } else {return searchResult.count}
+        if !activeSearch { return petitions.count } else { return searchResult.count }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,22 +116,28 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DetailViewController()
-        vc.detailItem = petitions[indexPath.row]
-        navigationController?.pushViewController(vc, animated: true)
+        DispatchQueue.main.async {
+            let vc = DetailViewController()
+            vc.detailItem = self.petitions[indexPath.row]
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
-    func submit(_ search: String){
+    @objc func submit(_ search: String){
+        
         print(search)
         for result in petitions {
             if result.title.contains(search) || result.body.contains(search) {
                 searchResult.append(result)
             }
         }
+        let dpt = petitions
         print(searchResult)
+        petitions = searchResult
         activeSearch = true
-        tableView.reloadData()
-        activeSearch = false
+        
+        //activeSearch = false
+        petitions = dpt
     }
 }
 
